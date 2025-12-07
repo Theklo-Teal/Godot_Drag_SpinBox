@@ -2,6 +2,8 @@
 extends HBoxContainer
 class_name DragSpinBox
 
+signal value_changed(value:int)
+
 @export var text : String = "" : set=set_text
 func set_text(val:String):
 	text = val
@@ -60,3 +62,5 @@ func _gui_input(event: InputEvent) -> void:
 		if event.is_pressed():
 			drag_start = [event.position.x, event.position.y][int(drag_vertical)]
 			val_start = value
+		elif val_start != value:
+			value_changed.emit(value)
